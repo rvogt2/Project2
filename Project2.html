@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <!--
+            Though this structure is unusual, this is building off of an 
+            in-class provided example
+        -->
+        <link rel="stylesheet" href="Project2CSS.css">
+    </head>
+    <body>
+        <div id="controlsContainer">
+        <h1>The Wonders of the Internet</h1>
+        <div id="searchContainer">
+            <div>Text <input type="text" id="keyword" onkeyup="Valid()"></div>
+            <span id="errorKeyword"></span>
+            <div>Limit <input type="number" id="limit" onkeyup="Valid()"></div>
+            <span id="errorLimit" ></span>
+        </div>
+        <div id="buttonsContainer">
+            <span>
+                <button onclick="SearchKey()">Search</button>
+            </span>
+            <span>
+                <button onclick="getRandom()">Random</button>
+            </span>
+            <span>
+            <button onclick="translateFromKey()">Translate</button>
+            </span>
+        </div>
+        <br>
+    </div>
+        <div id="outputArea"><span>All that needs doing now is for a query and limit to be set, and the possibilities are endless!</span></div>
+        <footer>Giphy Search Engine by Rhyse Vogt for UTA Quickstart Arlington</footer>
+        <script src="Project2Scripts.js"></script>
+    </body>
+</html>

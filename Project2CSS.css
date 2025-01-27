@@ -1,0 +1,56 @@
+@media (max-width: 800px) {
+                #outputArea {
+                    flex-direction: column;
+                }
+            }
+
+            * {
+                text-align: center;
+            }
+
+            #errorSpan {
+                color:red;
+                background:rgba(0, 0, 0, 0.498);
+            }
+
+            h1 {
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }
+
+            body {
+                background-color: rgb(185, 0, 0);
+                color: white;
+            }
+            
+            #buttonsContainer button:hover {
+                color: black;
+                border-radius: 25%;
+            }
+
+            #outputArea {
+                justify-content: center;
+                align-self: center;
+
+                display:flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+
+                color:black;
+                height: 70%;
+            }
+            #outputArea img {
+
+                height: 250px;
+                border: black solid 2px;
+                padding: 5px;
+                margin: 5px;
+            }
+
+            footer {
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                padding: 4px;
+                background:black;
+                position:fixed;
+                bottom:0;
+                
+            }
