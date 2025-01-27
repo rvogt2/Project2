@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <!--
+            Though this structure is unusual, this is building off of an 
+            in-class provided example
+        -->
+        <style>
+            @media (max-width: 800px) {
+                #outputArea {
+                    flex-direction: column;
+                }
+            }
+
+            * {
+                text-align: center;
+            }
+
+            #errorSpan {
+                color:red;
+                background:rgba(0, 0, 0, 0.498);
+            }
+
+            h1 {
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            }
+
+            body {
+                background-color: rgb(185, 0, 0);
+                color: white;
+            }
+            
+            #buttonsContainer button:hover {
+                color: black;
+                border-radius: 25%;
+            }
+
+            #outputArea {
+                justify-content: center;
+                align-self: center;
+
+                display:flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+
+                color:black;
+                height: 70%;
+            }
+            #outputArea img {
+
+                height: 250px;
+                border: black solid 2px;
+                padding: 5px;
+                margin: 5px;
+            }
+
+            footer {
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                padding: 4px;
+                background:black;
+                position:fixed;
+                bottom:0;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <div id="controlsContainer">
+        <h1>The Wonders of the Internet</h1>
+        <div id="searchContainer">
+            <div>Text <input type="text" id="keyword" onkeyup="Valid()"></div>
+            <span id="errorKeyword"></span>
+            <div>Limit <input type="number" id="limit" onkeyup="Valid()"></div>
+            <span id="errorLimit" ></span>
+        </div>
+        <div id="buttonsContainer">
+            <span>
+                <button onclick="SearchKey()">Search</button>
+            </span>
+            <span>
+                <button onclick="getRandom()">Random</button>
+            </span>
+            <span>
+            <button onclick="translateFromKey()">Translate</button>
+            </span>
+        </div>
+        <br>
+    </div>
+        <div id="outputArea"><span>All that needs doing now is for a query and limit to be set, and the possibilities are endless!</span></div>
+        <footer>Giphy Search Engine by Rhyse Vogt for UTA Quickstart Arlington</footer>
+<!--
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous">
+</script>
+-->
+<script>
+
+//validation function, called every keyup
+function Valid() {
+    keyword = document.getElementById('keyword').value;
+    limit = document.getElementById('limit').value;
+
+    errorKey = document.getElementById('errorKeyword');
+    errorLimit = document.getElementById('errorLimit');
+
+    if (keyword == ""){
+        errorKey.innerText = 'keyword can not be blank';
+    } else {errorKey.innerText = '';}
+    if (limit <= 1) {
+        errorLimit.innerText = 'limit can not be one or lower';
+    }
+    else {errorLimit.innerText = '';}
+//though it doesnt stop function, its suggesting best practice for thie to work.
+}
+
+            output = document.getElementById("outputArea");
+//refreshes the keyword value each time the functions are called.
+            async function SearchKey()
+            {
+                output.innerHTML = '';
+                keyword = document.getElementById('keyword').value;
+                limit = document.getElementById('limit').value;
+
+                let url = await fetch(`http://api.giphy.com/v1/gifs/search?q=${keyword}&api_key=Yf9mWcgHFge7XDQrtYHdxxFkHrpfY4ex&limit=${limit}&offset=0`)
+                .then(res => res.json())
+                .then(data => {for (limit in data.data)
+                    {
+                        output.innerHTML+=
+                        `<div><a href="${data.data[limit].images.original.url}"><img src='${data.data[limit].images.original.url}'/></a></div>`
+                    }
+                            })
+                    //fully functional!
+            }
+            async function getRandom()
+            {
+                output.innerHTML = '';
+                keyword = document.getElementById('keyword').value;
+                limit = document.getElementById('limit').value;
+
+                let url = await fetch(`https://api.giphy.com/v1/gifs/random?q=${keyword}&api_key=Yf9mWcgHFge7XDQrtYHdxxFkHrpfY4ex`)
+                .then(res => res.json())
+                .then(data => output.innerHTML = 
+                    `
+                    <div><a href='${data.data.images.original.url}'><img src='${data.data.images.original.url}'/></a></div>
+                    `);
+                //this feature fully works! only outputs a single gif, which is a desired result.
+            }
+
+            async function translateFromKey()
+            {
+                output.innerHTML = '';
+                keyword = document.getElementById('keyword').value;
+                limit = document.getElementById('limit').value;
+
+                let url = await fetch(`http://api.giphy.com/v1/gifs/translate?s=${keyword}&api_key=Yf9mWcgHFge7XDQrtYHdxxFkHrpfY4ex&limit=${limit}&offset=0`)
+                .then(res => res.json())
+                .then(data => output.innerHTML = 
+                    `<div><a href="${data.data.images.original.url}"><img src='${data.data.images.original.url}'/></a></div>`
+                     )
+            };
+                    //needs to loop
+         
+        </script>
+    </body>
+</html>
